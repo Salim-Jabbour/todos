@@ -17,6 +17,7 @@ class CustomTextField extends StatelessWidget {
   final String? initialValue;
   final bool? enabled;
   final double? height;
+  final bool isAuth;
 
   const CustomTextField({
     required this.keybordType,
@@ -33,6 +34,7 @@ class CustomTextField extends StatelessWidget {
     this.initialValue,
     this.enabled,
     this.height,
+    required this.isAuth,
   });
 
   @override
@@ -73,10 +75,13 @@ class CustomTextField extends StatelessWidget {
               borderRadius: BorderRadius.circular(30.r),
               borderSide: const BorderSide(color: Colors.black),
             ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30.r),
-              borderSide: const BorderSide(color: Colors.grey, width: 2.0),
-            ),
+            enabledBorder: !isAuth
+                ? OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30.r),
+                    borderSide:
+                        const BorderSide(color: Colors.grey, width: 2.0),
+                  )
+                : const OutlineInputBorder(borderSide: BorderSide.none),
             prefixIcon: Icon(
               icon,
               color: ColorManager.foregroundL,

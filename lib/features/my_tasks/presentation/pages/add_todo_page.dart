@@ -13,6 +13,7 @@ import '../../../../core/widgets/custom_text_field.dart';
 import '../../../../core/widgets/loading_widget.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../bloc/my_todo_bloc.dart';
+import '../widgets/switch_button_widget.dart';
 
 class AddTodoPage extends StatefulWidget {
   const AddTodoPage({super.key});
@@ -33,6 +34,8 @@ class _AddTodoPageState extends State<AddTodoPage> {
     todoController.dispose();
     super.dispose();
   }
+
+  bool _switchValue = false;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +69,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
                       children: [
                         Center(
                           child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 60.h),
+                            padding: EdgeInsets.only(top: 100.h),
                             child: Image.asset(
                               AssetImageManager.todo,
                               fit: BoxFit.fill,
@@ -93,9 +96,39 @@ class _AddTodoPageState extends State<AddTodoPage> {
                             }
                             return null;
                           },
+                        isAuth: false,
+
                         ),
                         SizedBox(
-                          height: 60.h,
+                          height: 30.h,
+                        ),
+                        SizedBox(
+                          // width: 75.w,
+                          height: 150.h,
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                    'Completed: ${_switchValue ? "ON" : "OFF"}'),
+                                Switch(
+                                  activeColor: ColorManager.green,
+                                  inactiveThumbColor: ColorManager.red,
+                                  inactiveTrackColor:
+                                      ColorManager.red.withOpacity(0.2),
+                                  value: _switchValue,
+                                  onChanged: (bool newValue) {
+                                    setState(() {
+                                      _switchValue = newValue;
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 30.h,
                         ),
 
                         CustomButton(
@@ -103,7 +136,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
                             if (_formKey.currentState!.validate()) {
                               context.read<MyTodoBloc>().add(AddTodoEvent(
                                     todo: todoController.text,
-                                    completed: 0,
+                                    completed: _switchValue ? 1 : 0,
                                     userId: int.parse(
                                         context.read<AuthBloc>().id ?? '12'),
                                   ));

@@ -89,6 +89,8 @@ class _LoginPageState extends State<LoginPage> {
                           }
                           return null;
                         },
+                        isAuth: true,
+
                       ),
                       SizedBox(
                         height: 20.h,
@@ -123,6 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                           }
                           return null;
                         },
+                        isAuth: true,
                       ),
 
                       SizedBox(

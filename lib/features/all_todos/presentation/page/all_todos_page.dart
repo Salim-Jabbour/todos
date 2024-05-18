@@ -1,6 +1,3 @@
-import 'dart:async';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,7 +12,6 @@ import '../../../../core/widgets/loading_widget.dart';
 import '../../../../core/widgets/todo_card_widget.dart';
 import '../../../my_tasks/models/my_todo_model.dart';
 import '../bloc/all_todos_bloc.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class AllTodosPage extends StatefulWidget {
   const AllTodosPage({super.key});
