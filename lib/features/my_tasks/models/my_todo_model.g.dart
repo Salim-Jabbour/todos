@@ -46,6 +46,7 @@ MyTodoModelOffline _$MyTodoModelOfflineFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$MyTodoModelOfflineToJson(MyTodoModelOffline instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'todo': instance.todo,
       'completed': instance.completed,
       'userId': instance.userId,

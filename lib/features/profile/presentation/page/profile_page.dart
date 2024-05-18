@@ -102,6 +102,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             myTodoModel?.todo ?? 'Paint the first thing I see',
                         completed: myTodoModel?.completed ?? false,
                         userId: myTodoModel?.userId ?? 5,
+                        mytodo: true,
                       ),
                       SizedBox(height: 10.h),
 
@@ -134,7 +135,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   const LoadingWidget(
                     fullScreen: true,
                   ),
-                if (state is ProfileGetUserFailed)
+                if (state is ProfileGetRandomTodoFailed)
                   FailureWidget(
                       errorMessage: state.failure.message,
                       onPressed: () {

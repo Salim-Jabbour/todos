@@ -10,8 +10,6 @@ abstract class MyTodoLocalDataSource {
   Future<Database> initDb(String fileName);
   Future<void> createTodo(MyTodoModelOffline todo);
   Future<List<MyTodoModelOffline>?> getAllTodos();
-  Future<void> updateUser(MyTodoModelOffline todo);
-  Future<void> deleteUser(int id);
   Future<void> closeDb();
 
   // to clear local db and put the new ones
@@ -77,18 +75,7 @@ class MyTodoLocalDataSourceImpl extends MyTodoLocalDataSource {
     await batch.commit(noResult: true);
   }
 
-  @override
-  Future<void> deleteUser(int id) {
-    // TODO: implement deleteUser
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> updateUser(MyTodoModelOffline todo) {
-    // TODO: implement updateUser
-    throw UnimplementedError();
-  }
-
+  
   @override
   Future<void> closeDb() async {
     final db = await database;

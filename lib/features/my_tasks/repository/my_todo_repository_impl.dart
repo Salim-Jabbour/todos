@@ -14,9 +14,9 @@ import '../data/datasource/remote/my_todo_remote_data_source.dart';
 import 'my_todo_repository.dart';
 
 class MyTodoRepositoryImpl extends MyTodoRepository {
-  final MyTodoRemoteDataSource _myTodoRemoteDataSource;
   final MyTodoLocalDataSource _myTodoLocalDataSource;
   final AuthLocalDataSource _authLocalDataSource;
+  final MyTodoRemoteDataSource _myTodoRemoteDataSource;
   final NetworkInfo _networkInfo;
 
   MyTodoRepositoryImpl(
@@ -41,6 +41,7 @@ class MyTodoRepositoryImpl extends MyTodoRepository {
             List<MyTodoModelOffline> todos = [];
             for (MyTodoModel todo in getMyTodos.todos) {
               MyTodoModelOffline temp = MyTodoModelOffline(
+                id: todo.id,
                 todo: todo.todo,
                 completed: todo.completed == true ? 1 : 0,
                 userId: todo.userId,
@@ -144,9 +145,7 @@ class MyTodoRepositoryImpl extends MyTodoRepository {
       } on ServerException {
         return Left(ServerFailure());
       }
-    }
-    // TODO: add else if condition to update the offline data
-    else {
+    }  else {
       return left(NoInternetFailure());
     }
   }

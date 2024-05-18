@@ -6,12 +6,14 @@ import 'package:get_it/get_it.dart';
 import '../../../../config/theme/color_manager.dart';
 import '../../../../core/resource/string_manager.dart';
 import '../../../../core/utils/global_snackbar.dart';
+import '../../../../core/utils/services/debug_print.dart';
 import '../../../../core/widgets/empty_widget.dart';
 import '../../../../core/widgets/error_widget.dart';
 import '../../../../core/widgets/loading_widget.dart';
 import '../../../../core/widgets/todo_card_widget.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../profile/presentation/page/profile_page.dart';
+import '../../data/datasource/local/my_todo_local_data_source.dart';
 import '../../models/my_todo_model.dart';
 import '../bloc/my_todo_bloc.dart';
 
@@ -24,6 +26,14 @@ class MyTodosPage extends StatefulWidget {
 
 class _MyTodosPageState extends State<MyTodosPage> {
   List<MyTodoModel>? todosList;
+  MyTodoLocalDataSource? _myTodoLocalDataSource;
+  @override
+  void dispose() {
+    _myTodoLocalDataSource?.closeDb();
+    dbg("CLOSED");
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -82,7 +92,7 @@ class _MyTodosPageState extends State<MyTodosPage> {
                         MaterialPageRoute(builder: (_) => const ProfilePage()));
                   },
                   child: Tooltip(
-                    message: 'Profile',
+                    message: StringManager.profile,
                     preferBelow: true,
                     textStyle: TextStyle(
                       fontSize: 12.sp,
@@ -104,7 +114,7 @@ class _MyTodosPageState extends State<MyTodosPage> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8.sp),
                   child: Tooltip(
-                    message: 'Refresh token',
+                    message: StringManager.refreshedToken,
                     preferBelow: true,
                     textStyle: TextStyle(
                       fontSize: 12.sp,
@@ -142,6 +152,7 @@ class _MyTodosPageState extends State<MyTodosPage> {
                                   'Paint the first thing I see',
                               completed: todosList?[index].completed ?? true,
                               userId: todosList?[index].userId ?? 5,
+                              mytodo: true,
                             );
                           }),
                     ),
