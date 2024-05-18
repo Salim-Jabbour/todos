@@ -103,7 +103,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
                             if (_formKey.currentState!.validate()) {
                               context.read<MyTodoBloc>().add(AddTodoEvent(
                                     todo: todoController.text,
-                                    completed: false,
+                                    completed: 0,
                                     userId: int.parse(
                                         context.read<AuthBloc>().id ?? '12'),
                                   ));

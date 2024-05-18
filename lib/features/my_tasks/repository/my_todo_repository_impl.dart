@@ -6,20 +6,26 @@ import 'package:maids_task_manager_app_test/features/my_tasks/models/my_todo_mod
 
 import '../../../core/errors/exception.dart';
 import '../../../core/network/network_info.dart';
+import '../../../core/utils/services/debug_print.dart';
 import '../../auth/data/datasource/local/auth_local_data_source.dart';
 import '../../auth/models/user_model.dart';
+import '../data/datasource/local/my_todo_local_data_source.dart';
 import '../data/datasource/remote/my_todo_remote_data_source.dart';
 import 'my_todo_repository.dart';
 
 class MyTodoRepositoryImpl extends MyTodoRepository {
   final MyTodoRemoteDataSource _myTodoRemoteDataSource;
+  final MyTodoLocalDataSource _myTodoLocalDataSource;
   final AuthLocalDataSource _authLocalDataSource;
   final NetworkInfo _networkInfo;
 
-  // TODO: implement sqflite
+  MyTodoRepositoryImpl(
+    this._myTodoRemoteDataSource,
+    this._networkInfo,
+    this._authLocalDataSource,
+    this._myTodoLocalDataSource,
+  );
 
-  MyTodoRepositoryImpl(this._myTodoRemoteDataSource, this._networkInfo,
-      this._authLocalDataSource);
   @override
   Future<Either<Failure, MyTodos>> getAllMyTodos(
       {required String userId}) async {
@@ -30,16 +36,47 @@ class MyTodoRepositoryImpl extends MyTodoRepository {
 
         return addsuccess.fold(
           (failure) => Left(failure),
-          (getMyTodos) {
+          (getMyTodos) async {
+            // set the remote data to local data after deleting the local db
+            List<MyTodoModelOffline> todos = [];
+            for (MyTodoModel todo in getMyTodos.todos) {
+              MyTodoModelOffline temp = MyTodoModelOffline(
+                todo: todo.todo,
+                completed: todo.completed == true ? 1 : 0,
+                userId: todo.userId,
+              );
+              todos.add(temp);
+            }
+            dbg(todos.length);
+            await _myTodoLocalDataSource.clearDatabase();
+            await _myTodoLocalDataSource.insertTodos(todos);
             return right(getMyTodos);
           },
         );
       } on ServerException {
         return Left(ServerFailure());
       }
-    } // TODO: add else if condition to get the offline data
+    } else if (!await _networkInfo.isConnected) {
+      List<MyTodoModelOffline>? todoList =
+          await _myTodoLocalDataSource.getAllTodos();
+      List<MyTodoModel> todos = [];
 
-    else {
+      for (MyTodoModelOffline todo in todoList!) {
+        MyTodoModel temp = MyTodoModel(
+          id: todo.id ?? 0,
+          todo: todo.todo,
+          completed: todo.completed == 1 ? true : false,
+          userId: todo.userId,
+        );
+        todos.add(temp);
+      }
+      return right(MyTodos(
+        todos: todos,
+        total: todos.length,
+        skip: 0,
+        limit: todos.length,
+      ));
+    } else {
       return left(NoInternetFailure());
     }
   }
@@ -47,7 +84,7 @@ class MyTodoRepositoryImpl extends MyTodoRepository {
   @override
   Future<Either<Failure, MyTodoModel>> addTodo(
       {required String todo,
-      required bool completed,
+      required int completed,
       required int userId}) async {
     if (await _networkInfo.isConnected) {
       try {
@@ -59,16 +96,31 @@ class MyTodoRepositoryImpl extends MyTodoRepository {
 
         return addsuccess.fold(
           (failure) => Left(failure),
-          (addTodo) {
+          (addTodo) async {
+            await _myTodoLocalDataSource.createTodo(MyTodoModelOffline(
+              todo: todo,
+              completed: completed,
+              userId: userId,
+            ));
             return right(addTodo);
           },
         );
       } on ServerException {
         return Left(ServerFailure());
       }
-    }
-    // TODO: add else if condition to get the offline data
-    else {
+    } else if (!await _networkInfo.isConnected) {
+      await _myTodoLocalDataSource.createTodo(MyTodoModelOffline(
+        todo: todo,
+        completed: completed,
+        userId: userId,
+      ));
+      return right(MyTodoModel(
+        id: 1,
+        todo: todo,
+        completed: completed == 1 ? true : false,
+        userId: userId,
+      ));
+    } else {
       return left(NoInternetFailure());
     }
   }

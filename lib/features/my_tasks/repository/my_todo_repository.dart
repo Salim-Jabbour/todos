@@ -11,7 +11,7 @@ abstract class MyTodoRepository {
 
   Future<Either<Failure, MyTodoModel>> addTodo({
     required String todo,
-    required bool completed,
+    required int completed,
     required int userId,
   });
 
@@ -23,6 +23,5 @@ abstract class MyTodoRepository {
     required String todoId,
   });
 
-    Future<Either<Failure, UserModel>> refreshToken(String token);
-
+  Future<Either<Failure, UserModel>> refreshToken(String token);
 }

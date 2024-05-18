@@ -1,6 +1,23 @@
 import 'package:json_annotation/json_annotation.dart';
 part 'my_todo_model.g.dart';
 
+const String tableName = "todos";
+
+const String idField = "id";
+const String todoField = "todo";
+const String completedField = "completed";
+const String userIdField = "userId";
+
+const List<String> todoColumns = [
+  idField,
+  todoField,
+  completedField,
+  userIdField,
+];
+
+// different database type
+const String textType = "TEXT NOT NULL";
+
 @JsonSerializable()
 class MyTodos {
   final List<MyTodoModel> todos;
@@ -38,4 +55,24 @@ class MyTodoModel {
       _$MyTodoModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$MyTodoModelToJson(this);
+}
+
+@JsonSerializable()
+class MyTodoModelOffline {
+  int? id;
+  final String todo;
+  final int completed;
+  final int userId;
+
+  MyTodoModelOffline({
+    this.id,
+    required this.todo,
+    required this.completed,
+    required this.userId,
+  });
+
+  factory MyTodoModelOffline.fromJson(Map<String, dynamic> json) =>
+      _$MyTodoModelOfflineFromJson(json);
+
+  Map<String, dynamic> toJson() => _$MyTodoModelOfflineToJson(this);
 }

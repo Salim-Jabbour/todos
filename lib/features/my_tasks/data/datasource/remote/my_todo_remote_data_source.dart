@@ -13,7 +13,7 @@ abstract class MyTodoRemoteDataSource {
 
   Future<Either<Failure, MyTodoModel>> addTodo({
     required String todo,
-    required bool completed,
+    required int completed,
     required int userId,
   });
 
@@ -26,13 +26,12 @@ abstract class MyTodoRemoteDataSource {
   });
 
   Future<Either<Failure, UserModel>> refreshToken(String token);
-
 }
 
 class MyTodoRemoteDataSourceImpl extends MyTodoRemoteDataSource {
   final Dio dioClient;
-
   MyTodoRemoteDataSourceImpl(this.dioClient);
+
   @override
   Future<Either<Failure, MyTodos>> getAllMyTodos(
       {required String userId}) async {
@@ -60,7 +59,7 @@ class MyTodoRemoteDataSourceImpl extends MyTodoRemoteDataSource {
   @override
   Future<Either<Failure, MyTodoModel>> addTodo(
       {required String todo,
-      required bool completed,
+      required int completed,
       required int userId}) async {
     final Response response;
     try {
@@ -68,7 +67,7 @@ class MyTodoRemoteDataSourceImpl extends MyTodoRemoteDataSource {
         '/todos/add',
         data: {
           'todo': todo,
-          'completed': completed,
+          'completed': completed == 1 ? true : false,
           'userId': userId,
         },
       );

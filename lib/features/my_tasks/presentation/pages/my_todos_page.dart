@@ -88,13 +88,12 @@ class _MyTodosPageState extends State<MyTodosPage> {
                       fontSize: 12.sp,
                       color: Colors.white,
                     ),
-                    child: Center(
+                    child: const Center(
                       child: CircleAvatar(
                         // radius: 15,
                         backgroundColor: Colors.transparent,
                         child: ClipRRect(
-                          child: Image.network(context.read<AuthBloc>().image ??
-                              'https://robohash.org/Terry.png?set=set4'),
+                          child: Icon(Icons.person),
                         ),
                       ),
                     ),
@@ -141,7 +140,7 @@ class _MyTodosPageState extends State<MyTodosPage> {
                               id: todosList?[index].id ?? 1,
                               todo: todosList?[index].todo ??
                                   'Paint the first thing I see',
-                              completed: todosList?[index].completed ?? false,
+                              completed: todosList?[index].completed ?? true,
                               userId: todosList?[index].userId ?? 5,
                             );
                           }),

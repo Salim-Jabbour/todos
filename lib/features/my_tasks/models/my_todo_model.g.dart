@@ -36,3 +36,17 @@ Map<String, dynamic> _$MyTodoModelToJson(MyTodoModel instance) =>
       'completed': instance.completed,
       'userId': instance.userId,
     };
+
+MyTodoModelOffline _$MyTodoModelOfflineFromJson(Map<String, dynamic> json) =>
+    MyTodoModelOffline(
+      todo: json['todo'] as String,
+      completed: (json['completed'] as num).toInt(),
+      userId: (json['userId'] as num).toInt(),
+    );
+
+Map<String, dynamic> _$MyTodoModelOfflineToJson(MyTodoModelOffline instance) =>
+    <String, dynamic>{
+      'todo': instance.todo,
+      'completed': instance.completed,
+      'userId': instance.userId,
+    };

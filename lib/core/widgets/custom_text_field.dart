@@ -49,9 +49,9 @@ class CustomTextField extends StatelessWidget {
         ),
         child: TextFormField(
           enabled: enabled,
-          maxLines: null,
-          minLines: null,
-          expands: true,
+          maxLines: visibility == true ? 1 : null,
+          minLines: visibility == true ? 1 : null,
+          expands: visibility == true ? false : true,
           initialValue: initialValue,
           controller: textEditingController,
           keyboardType: keybordType,

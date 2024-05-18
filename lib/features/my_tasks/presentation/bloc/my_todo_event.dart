@@ -11,7 +11,7 @@ class GetTodosEvent extends MyTodoEvent {
 
 class AddTodoEvent extends MyTodoEvent {
   final String todo;
-  final bool completed;
+  final int completed;
   final int userId;
 
   AddTodoEvent(

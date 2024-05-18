@@ -15,7 +15,7 @@ class TodoCardWidget extends StatelessWidget {
   });
   final int id;
   final String todo;
-  final bool completed;
+  final dynamic completed;
   final int userId;
 
   @override
@@ -26,7 +26,7 @@ class TodoCardWidget extends StatelessWidget {
         height: 200.h,
         width: 350.w,
         decoration: BoxDecoration(
-            color: completed
+            color: completed == true || completed == 1
                 ? ColorManager.green.withOpacity(0.8)
                 : ColorManager.red.withOpacity(0.2),
             boxShadow: [
@@ -46,7 +46,7 @@ class TodoCardWidget extends StatelessWidget {
                 IconButton(
                   onPressed: () {
                     context.read<MyTodoBloc>().add(UpdateTodoEvent(
-                          completed: !completed,
+                          completed: completed == 1 ? false : true,
                           todoId: id.toString(),
                         ));
                   },

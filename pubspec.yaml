@@ -46,6 +46,8 @@ dependencies:
   json_annotation: ^4.9.0
   dartz: ^0.10.1
   loading_animation_widget: ^1.2.1
+  sqflite: ^2.3.3+1
+  path: ^1.9.0
 
 dev_dependencies:
   flutter_test:
