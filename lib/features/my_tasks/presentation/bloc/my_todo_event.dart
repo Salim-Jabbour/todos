@@ -30,3 +30,9 @@ class DeleteTodoEvent extends MyTodoEvent {
 
   DeleteTodoEvent({required this.todoId});
 }
+
+class TodoRefreshTokenEvent extends MyTodoEvent {
+  final String token;
+
+  TodoRefreshTokenEvent(this.token);
+}

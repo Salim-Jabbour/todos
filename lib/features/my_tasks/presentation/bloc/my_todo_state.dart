@@ -7,7 +7,7 @@ final class MyTodoInitial extends MyTodoState {}
 
 final class MyTodoLoading extends MyTodoState {}
 
-// get Todos 
+// get Todos
 final class GetTodosSuccessState extends MyTodoState {
   final MyTodos myTodos;
 
@@ -57,4 +57,16 @@ final class DeleteTodoFailedState extends MyTodoState {
   final Failure failure;
 
   DeleteTodoFailedState(this.failure);
+}
+
+final class RefreshTokenSuccessState extends MyTodoState {
+  final UserModel userModel;
+
+  RefreshTokenSuccessState(this.userModel);
+}
+
+final class RefreshTokenFailedState extends MyTodoState {
+  final Failure failure;
+
+  RefreshTokenFailedState(this.failure);
 }

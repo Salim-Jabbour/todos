@@ -8,7 +8,6 @@ abstract class AuthRepository {
     required String username,
     required String password,
   });
-  Future<Either<Failure, UserModel>> refreshToken(String token);
 
   Future<String?> getToken();
   Future<String?> getUserId();

@@ -14,4 +14,7 @@ class StringManager {
   static String todo = 'Todo';
   static String addTodo = 'Add todo';
   static String myTasks = 'My Tasks';
+  static String refreshedSuccessfully = 'Refreshed successfully';
+  static String updatedSuccessfully = 'Updated successfully';
+  static String deletedSuccessfully = 'Deleted successfully';
 }

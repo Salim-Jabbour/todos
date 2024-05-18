@@ -6,19 +6,20 @@ import 'package:maids_task_manager_app_test/features/my_tasks/models/my_todo_mod
 
 import '../../../core/errors/exception.dart';
 import '../../../core/network/network_info.dart';
+import '../../auth/data/datasource/local/auth_local_data_source.dart';
+import '../../auth/models/user_model.dart';
 import '../data/datasource/remote/my_todo_remote_data_source.dart';
 import 'my_todo_repository.dart';
 
 class MyTodoRepositoryImpl extends MyTodoRepository {
   final MyTodoRemoteDataSource _myTodoRemoteDataSource;
+  final AuthLocalDataSource _authLocalDataSource;
   final NetworkInfo _networkInfo;
 
   // TODO: implement sqflite
 
-  MyTodoRepositoryImpl(
-    this._myTodoRemoteDataSource,
-    this._networkInfo,
-  );
+  MyTodoRepositoryImpl(this._myTodoRemoteDataSource, this._networkInfo,
+      this._authLocalDataSource);
   @override
   Future<Either<Failure, MyTodos>> getAllMyTodos(
       {required String userId}) async {
@@ -117,6 +118,26 @@ class MyTodoRepositoryImpl extends MyTodoRepository {
     }
     // TODO: add else if condition to delete the offline data
     else {
+      return left(NoInternetFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserModel>> refreshToken(String token) async {
+    if (await _networkInfo.isConnected) {
+      try {
+        final addSuccess = await _myTodoRemoteDataSource.refreshToken(token);
+        return addSuccess.fold(
+          (failure) => Left(failure),
+          (user) async {
+            await _authLocalDataSource.setUserToken(user.token);
+            return right(user);
+          },
+        );
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
       return left(NoInternetFailure());
     }
   }

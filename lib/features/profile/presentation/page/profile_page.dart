@@ -9,6 +9,7 @@ import '../../../../core/widgets/loading_widget.dart';
 import '../../../../core/widgets/todo_card_widget.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../my_tasks/models/my_todo_model.dart';
+import '../../../my_tasks/presentation/bloc/my_todo_bloc.dart';
 import '../../model/user_profile_model.dart';
 import '../bloc/profile_bloc.dart';
 import '../widget/profile_info_row_widget.dart';
@@ -137,7 +138,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   FailureWidget(
                       errorMessage: state.failure.message,
                       onPressed: () {
-                        context.read<AuthBloc>().add(AuthRefreshTokenEvent(
+                        context.read<MyTodoBloc>().add(TodoRefreshTokenEvent(
                             context.read<AuthBloc>().token ?? ''));
                       })
               ],

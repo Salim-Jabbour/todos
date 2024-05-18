@@ -13,10 +13,5 @@ class AuthLoginEvent extends AuthEvent {
   });
 }
 
-class AuthRefreshTokenEvent extends AuthEvent {
-  final String token;
-
-  AuthRefreshTokenEvent(this.token);
-}
 
 class AuthGetUserLocalInfo extends AuthEvent {}

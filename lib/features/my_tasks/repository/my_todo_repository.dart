@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../core/errors/base_error.dart';
+import '../../auth/models/user_model.dart';
 import '../models/my_todo_model.dart';
 
 abstract class MyTodoRepository {
@@ -21,4 +22,7 @@ abstract class MyTodoRepository {
   Future<Either<Failure, String>> deleteTodo({
     required String todoId,
   });
+
+    Future<Either<Failure, UserModel>> refreshToken(String token);
+
 }

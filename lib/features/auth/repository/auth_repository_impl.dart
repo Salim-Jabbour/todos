@@ -55,26 +55,7 @@ class AuthRepositoryImpl extends AuthRepository {
     }
   }
 
-  @override
-  Future<Either<Failure, UserModel>> refreshToken(String token) async {
-    if (await _networkInfo.isConnected) {
-      try {
-        final addSuccess = await _authRemoteDataSource.refreshToken(token);
-        return addSuccess.fold(
-          (failure) => Left(failure),
-          (user) async {
-            await _authLocalDataSource.setUserToken(user.token);
-            return right(user);
-          },
-        );
-      } on ServerException {
-        return Left(ServerFailure());
-      }
-    } else {
-      return left(NoInternetFailure());
-    }
-  }
-
+ 
   @override
   Future<String?> getToken() async {
     return await _authLocalDataSource.getUserToken();

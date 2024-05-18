@@ -33,18 +33,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       });
     });
 
-    on<AuthRefreshTokenEvent>((event, emit) async {
-      emit(AuthLoading());
-      final successOrFailuer = await _authRepostitory.refreshToken(event.token);
-      successOrFailuer.fold((error) {
-        emit(AuthFailed(failure: error));
-      }, (loginModel) async {
-        emit(AuthSuccess(user: loginModel));
-        await _authRepostitory.setToken(event.token);
-        token = event.token;
-      });
-    });
-
+   
     on<AuthGetUserLocalInfo>((event, emit) async {
       token = await _authRepostitory.getToken();
       id = await _authRepostitory.getUserId();
