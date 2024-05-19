@@ -35,7 +35,7 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
           ),
           NavigationDestination(
             icon: Icon(
-              Icons.home_rounded,
+              Icons.task_rounded,
               size: 30.sp,
             ),
             label: "Tasks",

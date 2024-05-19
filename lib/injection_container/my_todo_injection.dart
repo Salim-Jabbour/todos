@@ -17,7 +17,6 @@ Future<void> myTodoInjection() async {
   locator.registerLazySingleton<MyTodoRepository>(
     () => MyTodoRepositoryImpl(
         locator.get<MyTodoRemoteDataSource>(),
-        // TODO:also local todos
         locator.get<NetworkInfo>(),
         locator.get<AuthLocalDataSource>(),
         locator.get<MyTodoLocalDataSource>()),

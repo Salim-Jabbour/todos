@@ -1,7 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:maids_task_manager_app_test/core/errors/base_error.dart';
 import 'package:maids_task_manager_app_test/features/my_tasks/models/my_todo_model.dart';
 import 'package:maids_task_manager_app_test/features/my_tasks/presentation/bloc/my_todo_bloc.dart';
 import 'package:maids_task_manager_app_test/features/my_tasks/repository/my_todo_repository.dart';

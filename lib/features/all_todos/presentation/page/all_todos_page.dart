@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_final_fields
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -109,9 +111,9 @@ class _AllTodosPageState extends State<AllTodosPage> {
                               todosList!.length + (isLoadingMore ? 1 : 0),
                           itemBuilder: (context, index) {
                             if (index == todosList!.length) {
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: const Center(
+                              return const Padding(
+                                padding:  EdgeInsets.all(8.0),
+                                child:  Center(
                                     child: CircularProgressIndicator()),
                               );
                             }

@@ -145,7 +145,7 @@ class MyTodoRepositoryImpl extends MyTodoRepository {
       } on ServerException {
         return Left(ServerFailure());
       }
-    }  else {
+    } else {
       return left(NoInternetFailure());
     }
   }
@@ -166,9 +166,7 @@ class MyTodoRepositoryImpl extends MyTodoRepository {
       } on ServerException {
         return Left(ServerFailure());
       }
-    }
-    // TODO: add else if condition to delete the offline data
-    else {
+    } else {
       return left(NoInternetFailure());
     }
   }

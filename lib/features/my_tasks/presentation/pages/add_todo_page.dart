@@ -13,7 +13,6 @@ import '../../../../core/widgets/custom_text_field.dart';
 import '../../../../core/widgets/loading_widget.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../bloc/my_todo_bloc.dart';
-import '../widgets/switch_button_widget.dart';
 
 class AddTodoPage extends StatefulWidget {
   const AddTodoPage({super.key});
@@ -96,8 +95,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
                             }
                             return null;
                           },
-                        isAuth: false,
-
+                          isAuth: false,
                         ),
                         SizedBox(
                           height: 30.h,
@@ -143,6 +141,9 @@ class _AddTodoPageState extends State<AddTodoPage> {
                             }
                           },
                           text: StringManager.addTodo,
+                        ),
+                        SizedBox(
+                          height: 30.h,
                         ),
                       ],
                     ),

@@ -53,7 +53,7 @@ class CustomTextField extends StatelessWidget {
           enabled: enabled,
           maxLines: visibility == true ? 1 : null,
           minLines: visibility == true ? 1 : null,
-          expands: visibility == true ? false : true,
+          expands: isAuth == true ? false : true,
           initialValue: initialValue,
           controller: textEditingController,
           keyboardType: keybordType,
@@ -63,10 +63,12 @@ class CustomTextField extends StatelessWidget {
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
             hintText: hintText,
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30.r),
-              borderSide: const BorderSide(color: Colors.black),
-            ),
+            focusedBorder: !isAuth
+                ? OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30.r),
+                    borderSide: const BorderSide(color: Colors.black),
+                  )
+                : const OutlineInputBorder(borderSide: BorderSide.none),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(30.r),
               borderSide: const BorderSide(color: Colors.grey, width: 2.0),

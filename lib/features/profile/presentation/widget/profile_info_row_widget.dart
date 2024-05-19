@@ -17,18 +17,18 @@ class ProfileInfoRow extends StatelessWidget {
     return Row(
       children: [
         Icon(icon, color: Colors.blue),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
         Text(
           '$title:',
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 16,
           ),
         ),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
         Text(
           value,
-          style: TextStyle(fontSize: 16),
+          style: const TextStyle(fontSize: 16),
         ),
       ],
     );
