@@ -1,7 +1,11 @@
 part of 'my_todo_bloc.dart';
 
 @immutable
-sealed class MyTodoState {}
+sealed class MyTodoState extends Equatable {
+  const MyTodoState();
+  @override
+  List<Object> get props => [];
+}
 
 final class MyTodoInitial extends MyTodoState {}
 
