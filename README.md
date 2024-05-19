@@ -56,4 +56,4 @@
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/yourusername/todo_app.git
+   git clone https://github.com/Salim-Jabbour/todos
