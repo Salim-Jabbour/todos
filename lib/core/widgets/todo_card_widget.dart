@@ -59,10 +59,15 @@ class TodoCardWidget extends StatelessWidget {
                         child: Center(
                           child: IconButton(
                             onPressed: () {
-                              context.read<MyTodoBloc>().add(UpdateTodoEvent(
-                                    completed: completed == 1 ? false : true,
-                                    todoId: id.toString(),
-                                  ));
+                              mytodo
+                                  ? context
+                                      .read<MyTodoBloc>()
+                                      .add(UpdateTodoEvent(
+                                        completed:
+                                            completed == 1 ? false : true,
+                                        todoId: id.toString(),
+                                      ))
+                                  : null;
                             },
                             icon: Icon(
                               Icons.change_circle_outlined,
@@ -81,9 +86,11 @@ class TodoCardWidget extends StatelessWidget {
                         padding: EdgeInsets.only(right: 0.w),
                         child: IconButton(
                           onPressed: () {
-                            context.read<MyTodoBloc>().add(
-                                  DeleteTodoEvent(todoId: id.toString()),
-                                );
+                            mytodo
+                                ? context.read<MyTodoBloc>().add(
+                                      DeleteTodoEvent(todoId: id.toString()),
+                                    )
+                                : null;
                           },
                           icon: Icon(
                             Icons.delete_forever_rounded,

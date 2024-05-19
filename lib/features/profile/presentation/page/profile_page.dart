@@ -102,7 +102,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             myTodoModel?.todo ?? 'Paint the first thing I see',
                         completed: myTodoModel?.completed ?? false,
                         userId: myTodoModel?.userId ?? 5,
-                        mytodo: true,
+                        mytodo: false,
                       ),
                       SizedBox(height: 10.h),
 

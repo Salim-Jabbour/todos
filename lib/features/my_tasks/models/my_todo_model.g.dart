@@ -39,6 +39,7 @@ Map<String, dynamic> _$MyTodoModelToJson(MyTodoModel instance) =>
 
 MyTodoModelOffline _$MyTodoModelOfflineFromJson(Map<String, dynamic> json) =>
     MyTodoModelOffline(
+      id: (json['id'] as num?)?.toInt(),
       todo: json['todo'] as String,
       completed: (json['completed'] as num).toInt(),
       userId: (json['userId'] as num).toInt(),
